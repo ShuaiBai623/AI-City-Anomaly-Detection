@@ -37,7 +37,7 @@ Since it takes a long time to run this system, we split the task into several st
 2. Put the downloaded detection and reid models into `./models`, and put precaculated detection results into `./detection_results`.
 3. To test a video and show the result.
 `python ./detect_anomaly.py <video id>`
-To test all videos and save the results.
+4. To test all videos and save the results.
 `sh detect_all_videos.sh >tarck3.txt`
 
 ### Citation
