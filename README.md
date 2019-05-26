@@ -11,7 +11,7 @@ This repository contains our source code of Track-3 in the NVIDIA AI City Challe
 The challenge Track 3  of NVIDIA AI CITY 2019 required participating teams to submit the anomalies detected based on video feeds available from multiple cameras at intersections and along highways. 
 
 Detailed information of NVIDIA AICity Challenge 2019 can be found [here](https://www.aicitychallenge.org/).
-![overview](data/overview.png)
+![overview](data/overview.jpg)
 Overview of the architecture of our anomaly detection framework, which consists of background modeling module, perspective detection module, and spatial-temporal matrix discriminating module.
 ### Requirements
 
