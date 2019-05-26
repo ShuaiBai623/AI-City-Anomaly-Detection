@@ -1,5 +1,5 @@
 
-ffic Anomaly Detection via Perspective Map based on Spatial-temporal Information Matrix
+## Traffic Anomaly Detection via Perspective Map based on Spatial-temporal Information Matrix
 
 This repository contains our source code of Track-3 in the NVIDIA AI City Challenge at CVPR 2019 Workshop.
 
