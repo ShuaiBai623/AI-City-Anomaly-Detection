@@ -40,6 +40,9 @@ Since it takes a long time to run this system, we split the task into several st
 4. To test all videos and save the results.
 `sh detect_all_videos.sh >tarck3.txt`
 
+### Train detector
+We use Res50-FPN with DCN (Deformable-ConvNets) as our detector, which is trained with Datasets ([UA_DETRAC](http://detrac-db.rit.albany.edu/) & [VisDrone](http://www.aiskyeye.com/views/index))
+
 ### Citation
 
 

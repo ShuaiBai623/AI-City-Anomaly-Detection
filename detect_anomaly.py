@@ -10,15 +10,11 @@ from sklearn.preprocessing import normalize
 from sklearn.metrics.pairwise import cosine_similarity
 # sklearn.metrics.pairwise.cosine_similarity() 
 
-
-
-            
-#video id
 a=sys.argv[1]
 i=int(a)
 video_name = str(i)
 reid_model_name = "resnet50"
-reid_model_path = "/mnt/lustre/baishuai/experiment/AICity/Track3_submit/resnet101_all+track2_model.pth"
+reid_model_path = "models/reid/detection.pth"
 
 #Read static detection results and video information、
 root  =  "data"
@@ -43,7 +39,6 @@ state_matrix = np.zeros((h,w))      #State matrix, 0/1 distinguishes suspicious 
 start_frame = 1
 nums_frames = len(path_file_number)
 
-
 #Thresholds
 len_time_thre = 60   #Minimum abnormal duration (seconds)
 no_detect_thred = 8  #The shortest continuous number of times undetected, used to judge the abnormal termination or cancel the suspicious state
@@ -57,26 +52,23 @@ suspiciou_time_thre =18
 #Read frame by frame detection results
 dt_results_fbf = {}
 with open("detection_results/test_framebyframe/video%s.txt"%(a),'r') as f:
-    for line in f:
-        line = line.rstrip()
-        word = line.split(',')
-        frame = int(word[0])
-        x1 = int(word[2])
-        y1 = int(word[3])
-        tmp_w = int(word[4])
-        tmp_h = int(word[5])
-        score = float(word[6])
-        if frame not in dt_results_fbf:
-            dt_results_fbf[frame]=[]
-        if score > score_thred :
-            dt_results_fbf[frame].append([x1,y1,x1+tmp_w,y1+tmp_h,score])
+    dt_results_fbf = json.load(f)
+    # for line in f:
+    #     line = line.rstrip()
+    #     word = line.split(',')
+    #     frame = int(word[0])
+    #     x1 = int(word[2])
+    #     y1 = int(word[3])
+    #     tmp_w = int(word[4])
+    #     tmp_h = int(word[5])
+    #     score = float(word[6])
+    #     if frame not in dt_results_fbf:
+    #         dt_results_fbf[frame]=[]
+    #     if score > score_thred :
+    #         dt_results_fbf[frame].append([x1,y1,x1+tmp_w,y1+tmp_h,score])
 
 # Initialize the reid model
 reid_model = Reid_Extrctor(reid_model_name,reid_model_path)
-
-
-
-
 
 j=4
 internal_frame = 4+j*4 #The interval of average image
@@ -140,8 +132,8 @@ for i in range(1,num_pic):
 
         #vehicle reid
         if 'start_time' in anomely_now and (time_frame/frame - anomely_now['end_time'])<30:
-            feature1 = reid_model.extract("/mnt/lustre/baishuai/data/data_track3/%s/%d.jpg"%(a,max(1,anomely_now['start_time']*frame_rate)),anomely_now['region'])
-            feature2 = reid_model.extract("/mnt/lustre/baishuai/data/data_track3/%s/%d.jpg"%(a,max(1,time_frame)),region)
+            feature1 = reid_model.extract("data/AIC_Track3/ori_images/%s/%d.jpg"%(a,max(1,anomely_now['start_time']*frame_rate)),anomely_now['region'])
+            feature2 = reid_model.extract("data/AIC_Track3/ori_images/%s/%d.jpg"%(a,max(1,time_frame)),region)
             similarity = cosine_similarity(feature1,feature2)
             print(similarity)
             if similarity > similarity_thred:
@@ -164,11 +156,11 @@ for i in range(1,num_pic):
                     start_time = time_frame
             tmp_len+=1
         time_frame = start_time
-        tmp_im = cv2.imread("/mnt/lustre/baishuai/data/data_track3/%s/%d.jpg"%(a,time_frame))
+        tmp_im = cv2.imread("data/AIC_Track3/ori_images/%s/%d.jpg"%(a,time_frame))
         while  time_frame>1 and compute_brightness(tmp_im[region[1]:region[3],region[0]:region[2],:])>light_thred :
             start_time = time_frame
             time_frame -= 5
-            tmp_im = cv2.imread("/mnt/lustre/baishuai/data/data_track3/%s/%d.jpg"%(a,time_frame))
+            tmp_im = cv2.imread("data/AIC_Track3/ori_images/%s/%d.jpg"%(a,time_frame))
                 
             
         anomely_now['region'] = region
@@ -207,13 +199,11 @@ for i in range(1,num_pic):
                 anomely_now['score'] = anomely_score
             tmp_start = 0
 
-    #利用连续未检测到的矩阵更新转换矩阵
+    #Update state and score matrices
     state_matrix[no_detect_count_matrix>no_detect_thred] = 0
     no_detect_count_matrix[no_detect_count_matrix>no_detect_thred] = 0
-    #利用当前帧检测状态和位置状态得到更新矩阵
     tmp_detect = tmp_detect+state_matrix
     tmp_detect[tmp_detect>1] =1
-    #利用更新矩阵更新计数矩阵和得分矩阵
     count_matrix = count_matrix * tmp_detect
     score_matrix = score_matrix * tmp_detect
 
@@ -236,10 +226,6 @@ if all_results:
             final_result['score'] = 1.0 #nms_out[i,4]
 
 
-
-
-
-    ##vehicle reid
 
     print("%s %d %.1f"%(a,final_result['start_time'],final_result['score']))
 
