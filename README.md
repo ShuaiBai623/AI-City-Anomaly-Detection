@@ -28,13 +28,13 @@ Overview of the architecture of our anomaly detection framework, which consists 
 
 1. Install PyTorch 0.4.1 and torchvision following the [official instructions](https://pytorch.org/).
 2. Install [mmdetection@(pytorch0.4.1)](https://github.com/open-mmlab/mmdetection/tree/pytorch-0.4.1) and mmcv following the [official instructions](https://github.com/open-mmlab/mmdetection/blob/pytorch-0.4.1/INSTALL.md).
-3. Download the model weights and precaculated detection results from here.
+3. Download the model weights and precaculated detection results from [here](https://drive.google.com/drive/folders/1l8bPsFpwsOTzPfXTdZvrvziG5iJkaxIP?usp=sharing).
 
 ### Test video(s)
 
 Since it takes a long time to run this system, we split the task into several steps and provide precalculated results.
-1. Run `python ./capture_and_average.py`. Then, you will get all original frames and superimposed frames saved in `./data/ori_images` and `./data/processed_images` separately.
-2. Put the downloaded detection and reid models into `./models`, and put precaculated detection results into `./detection_results`.
+1. Run `python ./src/bg_modeling/capture_and_average.py`. Then, you will get all original frames and superimposed frames saved in `./data/AIC_Track3/ori_images` and `./data/AIC_Track3/processed_images` separately.
+2. Put the downloaded detection and reid [models](https://drive.google.com/drive/folders/1l8bPsFpwsOTzPfXTdZvrvziG5iJkaxIP?usp=sharing) into `./models`, and put precaculated detection [results](https://drive.google.com/drive/folders/1l8bPsFpwsOTzPfXTdZvrvziG5iJkaxIP?usp=sharing) into `./detection_results`.
 3. To test a video and show the result.
 `python ./detect_anomaly.py <video id>`
 4. To test all videos and save the results.

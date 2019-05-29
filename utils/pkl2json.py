@@ -49,7 +49,6 @@ with open('data/AIC_Track3/test_data_ori.json','r') as f:
 imgs = {}
 for i in range(1,101):
   imgs[str(i)]={}
-
 for i,name in enumerate(img_names):
     tmp_box = out[i][0]
     if len(tmp_box)>0:
@@ -59,8 +58,11 @@ for i,name in enumerate(img_names):
       if frame not in imgs[video]:
           imgs[video][frame] = []
       for box in tmp_box:
-        if box[4]>0.3:
+        if box[4]>0.1:
           imgs[video][frame].append(box[:4].tolist().append(box[4]))
 for i in range(1,101):
-  with open('detection_results/test_framebyframe/video'+str(i)+'.json','w') as f:
-    json.dump(imgs[str(i)],f,cls=MyEncoder)
+  with open('detection_results/test_framebyframe/video'+str(i)+'.txt','w') as f:
+    imgs_ = imgs[str(i)]
+    for img in imgs_:
+        for box in imgs_[img]:
+                f.write("%d,-1,%d,%d,%d,%d,%.4f,-1,-1,-1\n"%(int(img.split('.')[-2]),box[0],box[1],box[2]-box[0]+1,box[3]-box[1]+1,box[4]))

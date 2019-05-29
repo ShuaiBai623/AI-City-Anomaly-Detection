@@ -2,11 +2,13 @@ import cv2
 import os
 import sys
 import glob
+import tqdm
 # video_name = sys.argv[1]
-root = "data/AIC_Track3/videos"
+root = "data/AIC_Track3/videos/"
 dest_dir = "data/AIC_Track3/ori_images/"
 video_names = [str(i)+'.mp4' for i in range(1,101)]
-for video_name in video_names:
+print("caputure videos")
+for video_name in tqdm.tqdm(video_names):
     file_name = video_name
     folder_name = dest_dir+file_name.split('.')[0]
     os.makedirs(folder_name,exist_ok=True)
@@ -30,15 +32,16 @@ for video_name in video_names:
     vc.release()
 
 dest_dir_processed = "data/AIC_Track3/processed_images/"
-for i in range(1,101):
+print("average images")
+for i in tqdm.tqdm(range(1,101)):
     video_name = str(i)
-    path_file_number=glob.glob(os.path.join(root,video_name,'*.jpg')) #获取当前文件夹下个数
+    path_file_number=glob.glob(os.path.join(dest_dir,video_name,'*.jpg')) #获取当前文件夹下个数
     internal_frame = 4
     start_frame = 1
     video_name = str(i)
     nums_frames = len(path_file_number)
     alpha=0.1
-    os.mkdir(dest_dir_processed+video_name)
+    os.mkdir(dest_dir_processed+video_name,exist_ok=True)
 
     for j in range(4,5):
         internal_frame = 4+j*4
