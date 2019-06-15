@@ -45,7 +45,13 @@ We use Res50-FPN with DCN (Deformable-ConvNets) as our detector, which is traine
 
 ### Citation
 
-
+@InProceedings{Bai_2019_CVPR_Workshops,
+author = {Bai, Shuai and He, Zhiqun and Lei, Yu and Wu, Wei and Zhu, Chengkai and Sun, Ming and Yan, Junjie},
+title = {Traffic Anomaly Detection via Perspective Map based on Spatial-temporal Information Matrix},
+booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
+month = {June},
+year = {2019}
+}
 
 
 
