@@ -1,8 +1,10 @@
 
+🏆News: our team got the winner at the AI CITY 2019 Challenge Track3
+
 ## Traffic Anomaly Detection via Perspective Map based on Spatial-temporal Information Matrix
 
 This repository contains our source code of Track-3 in the NVIDIA AI City Challenge at CVPR 2019 Workshop.
-
+[Traffic Anomaly Detection via Perspective Map based on Spatial-temporal Information Matrix](http://openaccess.thecvf.com/content_CVPRW_2019/papers/AI%20City/Bai_Traffic_Anomaly_Detection_via_Perspective_Map_based_on_Spatial-temporal_Information_CVPRW_2019_paper.pdf)
 
 ### Introduction
 
@@ -45,13 +47,13 @@ We use Res50-FPN with DCN (Deformable-ConvNets) as our detector, which is traine
 
 ### Citation
 
-@InProceedings{Bai_2019_CVPR_Workshops,
+`@InProceedings{Bai_2019_CVPR_Workshops,
 author = {Bai, Shuai and He, Zhiqun and Lei, Yu and Wu, Wei and Zhu, Chengkai and Sun, Ming and Yan, Junjie},
 title = {Traffic Anomaly Detection via Perspective Map based on Spatial-temporal Information Matrix},
 booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
 month = {June},
 year = {2019}
-}
+}`
 
 
 
